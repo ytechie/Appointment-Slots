@@ -1,5 +1,6 @@
 let ical = require('ical');
 let _ = require('lodash');
+let moment = require('moment-timezone');
 
 if (!process.env.ICS_PATH) {
     require('dotenv').config();
@@ -28,37 +29,22 @@ module.exports = function (context, req) {
             if (data.hasOwnProperty(k)) {
               var ev = data[k]
               if(ev.summary === 'MS Dev Show Block') {
-                  slots.push({
-                      start: ev.start,
-                      end: ev.end
-                  });
-                  //console.log(ev.summary + ', ');
-                  //slots += ev.start.toString() + '\n';
+                    var zone = 'America/Los_Angeles';
+
+                    //TODO: What is the appointment isn't PT?
+
+                    slots.push({
+                        start: moment(ev.start).tz(zone).utc().format(),
+                        end: moment(ev.end).tz(zone).utc().format()
+                    });
               }
-              /*
-              console.log("Conference",
-                ev.summary,
-                'is in',
-                ev.location,
-                'on the', ev.start.getDate(), 'of', months[ev.start.getMonth()]);
-            }*/
           }
         }
-
-        /*
-        JSON.parse(data).forEach(function(event) {
-            if(event.summary === 'MS Dev Show Block') {
-                
-            }   
-        });*/
 
         context.res = {
             body: JSON.stringify(slots)
         };
         context.done();
-
-        /*
-        */
       });
 
     
