@@ -2,4 +2,4 @@ This is an Azure function that reads my iCal feed, looks for appointments called
 
 ### Setup
 
-Set the environment variable `ICAL_PATH`, or set up a .env file. See .evn.example for syntax.
+Set the environment variable `ICAL_PATH`, or set up a .env file. See .env.example for syntax.
