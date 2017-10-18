@@ -31,11 +31,28 @@ module.exports = function (context, req) {
               if(ev.summary === 'MS Dev Show Block') {
                     var zone = 'America/Los_Angeles';
 
+                    //if(ev.start.tz === )
+
                     //TODO: What is the appointment isn't PT?
 
+                    var start = new Date(ev.start.getFullYear(), ev.start.getMonth(), ev.start.getDate(), ev.start.getHours(),
+                        ev.start.getMinutes(), ev.start.getSeconds(), ev.start.getMilliseconds());
+
+                    //Print time without the Z
+                    var startString = moment(ev.start).format('YYYY-MM-DDTHH:mm:ss.sss');
+                    var endString = moment(ev.end).format('YYYY-MM-DDTHH:mm:ss.sss');
+                    
+
+
+                    //Convert from LA to UTC
+                    var utcStart = moment.tz(startString, 'America/Los_Angeles').toDate().toISOString();
+                    var utcEnd = moment.tz(endString, 'America/Los_Angeles').toDate().toISOString();
+ 
+
+
                     slots.push({
-                        start: moment(ev.start).tz(zone).utc().format(),
-                        end: moment(ev.end).tz(zone).utc().format()
+                        start: utcStart,
+                        end: utcEnd
                     });
               }
           }
