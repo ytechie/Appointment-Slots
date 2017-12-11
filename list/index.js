@@ -1,13 +1,13 @@
-let ical = require('ical');
-let _ = require('lodash');
-let moment = require('moment-timezone');
-
 if (!process.env.ICS_PATH) {
     require('dotenv').config();
     console.log(process.env);
 }
 
 module.exports = function (context, req) {
+    let ical = require('ical');
+    let _ = require('lodash');
+    let moment = require('moment-timezone');
+
     let icsPath = process.env.ICS_PATH;
 
     console.log('starting');
