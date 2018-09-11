@@ -29,17 +29,17 @@ module.exports = function (context, req) {
             if (data.hasOwnProperty(k)) {
               var ev = data[k]
               if(ev.summary === 'MS Dev Show Block') {
-                    var zone = 'America/Los_Angeles';
+                    var zone = 'America/Chicago';
 
-                    //TODO: What is the appointment isn't PT?
+                    //TODO: What if the appointment isn't CT?
 
                     //Print time without the Z
                     var startString = moment(ev.start).format('YYYY-MM-DDTHH:mm:ss.sss');
                     var endString = moment(ev.end).format('YYYY-MM-DDTHH:mm:ss.sss');
                     
-                    //Convert from LA to UTC
-                    var utcStart = moment.tz(startString, 'America/Los_Angeles').toDate().toISOString();
-                    var utcEnd = moment.tz(endString, 'America/Los_Angeles').toDate().toISOString();
+                    //Convert from server to UTC
+                    var utcStart = moment.tz(startString, zone).toDate().toISOString();
+                    var utcEnd = moment.tz(endString, zone).toDate().toISOString();
  
                     slots.push({
                         start: utcStart,
