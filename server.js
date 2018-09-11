@@ -35,17 +35,17 @@ app.get('/api/list', (req, res) => {
             if (data.hasOwnProperty(k)) {
               var ev = data[k]
               if(ev.summary === 'MS Dev Show Block') {
-                    var zone = 'America/Los_Angeles';
+                    var zone = 'America/Chicago';
 
-                    //TODO: What is the appointment isn't PT?
+                    //TODO: What is the appointment isn't CT?
 
                     //Print time without the Z
                     var startString = moment(ev.start).format('YYYY-MM-DDTHH:mm:ss.sss');
                     var endString = moment(ev.end).format('YYYY-MM-DDTHH:mm:ss.sss');
                     
                     //Convert from LA to UTC
-                    var utcStart = moment.tz(startString, 'America/Los_Angeles').toDate().toISOString();
-                    var utcEnd = moment.tz(endString, 'America/Los_Angeles').toDate().toISOString();
+                    var utcStart = moment.tz(startString, 'America/Chicago').toDate().toISOString();
+                    var utcEnd = moment.tz(endString, 'America/Chicago').toDate().toISOString();
  
                     slots.push({
                         start: utcStart,
